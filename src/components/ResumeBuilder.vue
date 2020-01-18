@@ -8,23 +8,23 @@
 
                 <!-- Right content -->
                 <div style="flex: 2; overflow: auto;">
-                    <basic-profile-form v-if="activeTab === 'basics'"/>
-                    <education-form v-if="activeTab === 'education'"/>
-                    <work-form v-if="activeTab === 'work'"/>
-                    <volunteer-form v-if="activeTab === 'volunteer'"/>
-                    <awards-form v-if="activeTab === 'awards'"/>
-                    <project-form v-if="activeTab === 'projects'"/>
-                    <skills-form v-if="activeTab === 'skills'"/>
-                    <languages-form v-if="activeTab === 'languages'"/>
-                    <interests-form v-if="activeTab === 'interests'"/>
-                    <references-form v-if="activeTab === 'references'"/>
+                    <basic-profile-form v-if="activeTab === 'basics'" :profile="resume.basics"/>
+                    <education-form v-if="activeTab === 'education'" :education="resume.education"/>
+                    <work-form v-if="activeTab === 'work'" :work="resume.work"/>
+                    <volunteer-form v-if="activeTab === 'volunteer'" :volunteer="resume.volunteer"/>
+                    <awards-form v-if="activeTab === 'awards'" :awards="resume.awards"/>
+                    <project-form v-if="activeTab === 'projects'" :projects="resume.projects"/>
+                    <skills-form v-if="activeTab === 'skills'" :skills="resume.skills"/>
+                    <languages-form v-if="activeTab === 'languages'" :languages="resume.languages"/>
+                    <interests-form v-if="activeTab === 'interests'" :interests="resume.interests"/>
+                    <references-form v-if="activeTab === 'references'" :references="resume.references"/>
                 </div>
             </div>
         </aside>
 
         <!-- Main -->
         <main style="flex: 1;overflow: auto;">
-            <preview-wrapper :data="resume" :headings="headings"/>
+            <preview-wrapper :resume="resume" :headings="headings"/>
         </main>
     </div>
 </template>
@@ -62,105 +62,105 @@
         data() {
             return {
                 resume: {
-                    "basics": {
-                        "name": "John Doe",
-                        "label": "Programmer",
-                        "picture": "",
-                        "email": "john@gmail.com",
-                        "phone": "(912) 555-4321",
-                        "website": "http://johndoe.com",
-                        "summary": "A summary of John Doe...",
-                        "location": {
-                            "address": "2712 Broadway St",
-                            "postalCode": "",
-                            "city": "",
-                            "countryCode": "",
-                            "region": "",
+                    basics: {
+                        name: "John Doe",
+                        label: "Programmer",
+                        picture: "",
+                        email: "john@gmail.com",
+                        phone: "(912) 555-4321",
+                        website: "http://johndoe.com",
+                        summary: "A summary of John Doe...",
+                        location: {
+                            address: "2712 Broadway St",
+                            postalCode: "",
+                            city: "",
+                            countryCode: "",
+                            region: "",
                         },
-                        "profiles": [
+                        profiles: [
                             {
-                                "network": "Twitter",
-                                "username": "john",
-                                "url": "http://twitter.com/john",
+                                network: "Twitter",
+                                username: "john",
+                                url: "http://twitter.com/john",
                             }],
                     },
-                    "work": [
+                    work: [
                         {
-                            "company": "Company",
-                            "position": "President",
-                            "website": "http://company.com",
-                            "startDate": "2013-01-01",
-                            "endDate": "2014-01-01",
-                            "summary": "Description...",
-                            "highlights": [
+                            company: "Company",
+                            position: "President",
+                            website: "http://company.com",
+                            startDate: "2013-01-01",
+                            endDate: "2014-01-01",
+                            summary: "Description...",
+                            highlights: [
                                 "Started the company",
                             ],
                         }],
-                    "volunteer": [
+                    volunteer: [
                         {
-                            "organization": "Organization",
-                            "position": "Volunteer",
-                            "website": "http://organization.com/",
-                            "startDate": "2012-01-01",
-                            "endDate": "2013-01-01",
-                            "summary": "Description...",
-                            "highlights": [
+                            organization: "Organization",
+                            position: "Volunteer",
+                            website: "http://organization.com/",
+                            startDate: "2012-01-01",
+                            endDate: "2013-01-01",
+                            summary: "Description...",
+                            highlights: [
                                 "Awarded 'Volunteer of the Month'",
                             ],
                         }],
-                    "education": [
+                    education: [
                         {
-                            "institution": "University",
-                            "area": "Software Development",
-                            "studyType": "Bachelor",
-                            "startDate": "2011-01-01",
-                            "endDate": "2013-01-01",
-                            "gpa": "4.0",
-                            "courses": [
+                            institution: "University",
+                            area: "Software Development",
+                            studyType: "Bachelor",
+                            startDate: "2011-01-01",
+                            endDate: "2013-01-01",
+                            gpa: "4.0",
+                            courses: [
                                 "DB1101 - Basic SQL",
                             ],
                         }],
-                    "awards": [
+                    awards: [
                         {
-                            "title": "Award",
-                            "date": "2014-11-01",
-                            "awarder": "Company",
-                            "summary": "There is no spoon.",
+                            title: "Award",
+                            date: "2014-11-01",
+                            awarder: "Company",
+                            summary: "There is no spoon.",
                         }],
-                    "projects": [
+                    projects: [
                         {
-                            "name": "Project",
-                            "description": "Description...",
-                            "url": "http://piperchat.com",
-                            "keywords": [],
+                            name: "Project",
+                            description: "Description...",
+                            url: "http://piperchat.com",
+                            keywords: [],
                         }],
-                    "skills": [
+                    skills: [
                         {
-                            "name": "Web Development",
-                            "level": "Master",
-                            "keywords": [
+                            name: "Web Development",
+                            level: "Master",
+                            keywords: [
                                 "HTML",
                                 "CSS",
                                 "Javascript",
                             ],
                         }],
-                    "languages": [
+                    languages: [
                         {
-                            "language": "English",
-                            "fluency": "Native speaker",
+                            language: "English",
+                            fluency: "Native speaker",
                         }],
-                    "interests": [
+                    interests: [
                         {
-                            "name": "Wildlife",
-                            "keywords": [
+                            name: "Wildlife",
+                            keywords: [
                                 "Ferrets",
                                 "Unicorns",
                             ],
                         }],
-                    "references": [
+                    references: [
                         {
-                            "name": "Jane Doe",
-                            "reference": "Reference...",
+                            name: "Jane Doe",
+                            reference: "Reference...",
                         }],
                 },
                 categories: [
@@ -168,15 +168,15 @@
                     "references"],
                 activeTab: "basics",
                 headings: {
-                    "work": "Work Experience",
-                    "volunteer": "Volunteer Work ",
-                    "education": "Education",
-                    "awards": "Awards & Certifications ",
-                    "projects": "Projects",
-                    "skills": "Skills",
-                    "language": "Languages",
-                    "interests": "Interests",
-                    "references": "References",
+                    work: "Work Experience",
+                    volunteer: "Volunteer Work ",
+                    education: "Education",
+                    awards: "Awards & Certifications ",
+                    projects: "Projects",
+                    skills: "Skills",
+                    language: "Languages",
+                    interests: "Interests",
+                    references: "References",
                 },
             }
         },

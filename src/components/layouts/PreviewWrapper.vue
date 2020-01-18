@@ -5,13 +5,14 @@
                 <div class="header-content">
                     <div class="header-text">
                         <p>
-                            {{ data.basics.name}}
+                            {{ resume.basics.name}}
                         </p>
-                        <p class="subtitle"> {{ data.basics.label }} </p>
+                        <p class="subtitle"> {{ resume.basics.label }} </p>
                     </div>
                 </div>
             </header>
             <div class="content-wrapper">
+
                 <!-- CONTACT -->
                 <section class="content">
                     <div class="row">
@@ -21,21 +22,22 @@
                         <div class="content-text">
                             <ul>
                                 <li>Website</li>
-                                <li>{{ data.basics.website }}</li>
+                                <li>{{ resume.basics.website }}</li>
                             </ul>
                             <ul>
                                 <li>Email</li>
                                 <li>
-                                    <a :href="'mailto:'+data.basics.email"> {{ data.basics.email }}</a>
+                                    <a :href="'mailto:' + resume.basics.email"> {{ resume.basics.email }}</a>
                                 </li>
                             </ul>
                             <ul>
                                 <li>Phone</li>
-                                <li>{{ basics.data.phone }}</li>
+                                <li>{{ resume.basics.phone }}</li>
                             </ul>
                         </div>
                     </div>
                 </section>
+
                 <!-- LOCATION -->
                 <section class="content">
                     <div class="row">
@@ -59,21 +61,38 @@
                     </div>
                 </section>
 
+                <!-- Work -->
                 <section class="content">
                     <div class="row">
                         <div class="content-cat big-text">
-                            Work  Experience
-                            <p>2013-12-01 till 2014-12-01</p>
+                            Work Experience
+                            <p v-for="(work, index) in resume.work" :key="'work_dates_' + index">{{ work.startDate }}till {{ work.endDate }}</p>
                         </div>
-                        <div class="content-text work-listing education-listing">
+                        <div v-for="(work, index) in resume.work" :key="'resume_work_' + index" class="content-text work-listing education-listing">
                             <p style="margin-top:2.4em;">
-                                <strong>CEO/President</strong>
-                                at <strong><a href="http://piedpiper.com">Pied Piper:</a></strong>
+                                <strong>{{ work.position }}</strong>
+                                &nbsp; at &nbsp;<strong>{{ work.company }}</strong>
                             </p>
-                            <p>Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.</p>
-                            <p class="highlight">Build an algorithm for artist to detect if their music was violating copy right infringement laws</p>
-                            <p class="highlight">Successfully won Techcrunch Disrupt</p>
-                            <p class="highlight">Optimized an algorithm that holds the current world record for Weisman Scores</p>
+
+                            <p v-for="(highlight, index) in work.highlights" :key="'work_highlight_' + index" class="highlight">{{ highlight }}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            Projects
+                        </div>
+                        <div v-for="(project, index) in resume.projects" :key="'resume_project_' + index"
+                             class="content-text work-listing education-listing">
+                            <p style="margin-top:0.25em;">
+                                <strong><a :href="project.url">{{ project.name }}</a></strong>
+                                &nbsp; at &nbsp;<strong>{{ project.description }}</strong>
+                            </p>
+
+                            <p v-for="(highlight, index) in project.highlights" :key="'project_highlight_' + index" class="highlight">{{ highlight }}</p>
                         </div>
                     </div>
                 </section>
@@ -81,14 +100,17 @@
                 <section class="content">
                     <div class="row">
                         <div class="content-cat big-text">
-                            CoderDojo
-                            <p>2012-01-01 till 2013-01-01</p>
+                            Volunteer Work
+                            <p v-for="(volunteer, index) in resume.volunteer" :key="'volunteer_dates_' + index">{{ volunteer.startDate }}till {{ volunteer.endDate }}</p>
                         </div>
-                        <div class="content-text work-listing">
-                            <p>
-                                Global movement of free coding clubs for young people.
+                        <div v-for="(volunteer,index) in resume.volunteer" :key="'preview_volunteer_' + index" class="content-text work-listing">
+                            <p style="margin-top:2.4em;">
+                                <strong>
+                                    {{ volunteer.position }}
+                                </strong>
+                                &nbsp; at &nbsp;<strong>{{ volunteer.organization }}</strong>
                             </p>
-                            <p class="highlight">Awarded 'Teacher of the Month'</p>
+                            <p class="highlight"> {{ volunteer.summary }} </p>
                         </div>
                     </div>
                 </section>
@@ -97,13 +119,13 @@
                     <div class="row">
                         <div class="content-cat big-text">
                             Education
-                            <p>2011-06-01 till 2014-01-01</p>
+                            <p v-for="(education, index) in resume.education" :key="'education_dates_' + index">{{ education.startDate }} till {{ education.endDate }}</p>
                         </div>
-                        <div class="content-text work-listing education-listing">
-                            <p class="heading" style="margin-top:2.35em;">University of Oklahoma</p>
+                        <div v-for="(education, educationIndex) in resume.education" :key="'preview_education_' + educationIndex" class="content-text work-listing education-listing">
+                            <p class="heading" style="margin-top:2.35em;">{{education.institution}} <span v-if="education.location">, {{education.location}}</span></p>
                             <p class="highlight">
-                                Bachelor:
-                                <i>Information Technology (4.0)</i>
+                                {{ education.studyType }}:
+                                <i>{{ education.area }} ({{education.gpa}})</i>
                             </p>
                         </div>
                     </div>
@@ -113,12 +135,14 @@
                     <div class="row">
                         <div class="content-cat big-text">
                             Awards
-                            <p>Digital Compression Pioneer Award</p>
-                            <p style="margin-top:0.25em;">2014-11-01</p>
+                            <div v-for="(award,index) in resume.awards" :key="'preview_awards_date' + index">
+                                <p style="margin-top:0.25em; margin-bottom: 0.25em">{{ award.title }}</p>
+                                <p>{{ award.date}}</p>
+                            </div>
                         </div>
-                        <div class="content-text work-listing">
-                            <strong><p class="heading">Techcrunch</p></strong>
-                            <p class="highlight">There is no spoon.</p>
+                        <div v-for="(award,index) in resume.awards" :key="'preview_awards_' + index" class="content-text work-listing">
+                            <strong><p style="margin-top:2.5em;" class="heading">{{ award.awarder }}</p></strong>
+                            <p class="highlight">{{ award.summary }}</p>
                         </div>
                     </div>
                 </section>
@@ -128,24 +152,15 @@
                         <div class="content-cat">
                             Skills
                         </div>
-                        <div class="content-text skills-listing">
+                        <div v-for="(skill, index) in resume.skills" :key="'skills_'+index" class="content-text skills-listing">
                             <p>
-                    <span class="name">
-                        <strong>
-                          Web Development
-                        </strong>
-                    </span>
-                                <span>(Master):</span>
-                                HTML, CSS, Javascript
-                            </p>
-                            <p>
-                    <span class="name">
-                        <strong>
-                          Compression
-                        </strong>
-                    </span>
-                                <span>(Master):</span>
-                                Mpeg, MP4, GIF
+                                <span class="name">
+                                    <strong>
+                                      {{ skill.name }}
+                                    </strong>
+                                </span>
+                                <span>( {{ skill.level }} ):</span>
+                                {{ skill.keywords.join(",")}}
                             </p>
                         </div>
                     </div>
@@ -158,9 +173,9 @@
                             Languages
                         </div>
                         <div class="content-text">
-                            <ul>
-                                <li>English</li>
-                                <li>Native speaker</li>
+                            <ul v-for="(language,index) in resume.languages" :key="'preview_languages_date' + index">
+                                <li> {{ language.language }}</li>
+                                <li> {{ language.fluency }}</li>
                             </ul>
                         </div>
                     </div>
@@ -194,13 +209,27 @@
                             Interests
                         </div>
                         <div class="content-text skills-listing">
-                            <p>
-                      <span class="name">
-                          <strong>
-                            Wildlife:
-                          </strong>
-                      </span>
-                                Ferrets, Unicorns
+                            <p v-for="(interest,index) in resume.interests" :key="'preview_interest_' + index">
+                              <span class="name">
+                                  <strong>
+                                    {{ interest.name }}:
+                                  </strong>
+                              </span>
+                                {{ interest.keywords.join(", ")}}
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            References
+                        </div>
+                        <div v-for="(reference,index) in resume.references" :key="'preview_reference_' + index" class="content-text work-listing education-listing">
+                            <p class="heading">{{ reference.name }}</p>
+                            <p class="highlight">
+                                {{ reference.reference }}
                             </p>
                         </div>
                     </div>
@@ -208,14 +237,15 @@
 
             </div>
         </article>
-    </div></template>
+    </div>
+</template>
 
 <script>
     export default {
         name: "PreviewWrapper",
-        components: { },
+        components: {},
         props: {
-            data: { type: Object, required: true },
+            resume: { type: Object, required: true },
             headings: { type: Object, required: true },
         },
     }
@@ -233,44 +263,54 @@
         border-bottom: 3px solid #e0e0e0;
         border-radius: 3px;
     }
+
     header {
         width: 100%;
         vertical-align: middle;
         text-align: center;
     }
+
     .header-content {
         display: inline-block;
     }
+
     .header-text {
         margin-top: 0.5em;
         margin-left: 1em;
     }
+
     header p {
         text-align: center;
         margin: 0;
         color: #212121;
     }
+
     .subtitle {
         padding-top: .3em;
         font-size: 0.55em;
         font-weight: 500;
         color: #424242;
     }
+
     .content-wrapper {
         padding-right: 7.25%;
     }
+
     .content {
         display: table;
         width: 100%;
         padding-top: 1.5em;
         /* border-top: 1px solid #eeeeee; */
     }
+
     .row {
         display: table-row;
     }
+
     .row div {
         display: table-cell;
     }
+
     .content-cat {
         font-variant: small-caps;
         font-weight: 300;
@@ -282,24 +322,29 @@
         padding-left: 6.66%;
         width: 30%;
     }
+
     .content-text {
         border-left: 1px solid #e0e0e0;
         transition: border 0.66s ease-in;
     }
+
     .content-text ul {
         padding: 0;
         margin: 0.15em 0 0 1.5em;
         width: 85%;
     }
+
     .content-text ul li {
         font-size: 0.7em;
         display: inline-block;
     }
+
     .content-text ul li:first-child {
         width: 35%;
         color: #424242;
         font-weight: 600;
     }
+
     .content-cat {
         font-variant: small-caps;
         font-weight: 300;
@@ -311,12 +356,15 @@
         padding-left: 6.66%;
         width: 30%;
     }
+
     .big-text {
         vertical-align: top;
     }
+
     .highlight {
         transition: border .33s ease-in;
     }
+
     .work-listing p {
         font-size: 0.7em;
         color: #424242;
@@ -324,6 +372,7 @@
         margin-top: 0.45em;
         margin-bottom: 0.45em;
     }
+
     .work-listing .highlight {
         font-size: 0.7em;
         font-weight: 400;
@@ -332,9 +381,11 @@
         padding-left: 0.5em;
         border-left: 1px solid #e0e0e0;
     }
+
     .education-listing > .highlight {
         margin-left: 3.25em;
     }
+
     div.content-text.skills-listing > p {
         font-size: 0.7em;
         font-weight: 400;

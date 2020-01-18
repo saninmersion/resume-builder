@@ -6,29 +6,30 @@
             <input class="u-full-width" type="text" name="headings.volunteer" value="" placeholder="Volunteer Work"/>
         </div>
         <hr>
-        <div>
+        <div v-for="(volunteerItem,index) in volunteer" :key="'volunteer_' + index">
             <div>
                 <label>Organization Name</label>
-                <input class="u-full-width" type="text" name="volunteer[0].organization" value="" placeholder="Google Developers Circle">
+                <input class="u-full-width" type="text" name="volunteer.organization" v-model="volunteerItem.organization" placeholder="Google Developers Circle">
             </div>
             <div>
                 <label>Position</label>
-                <input class="u-full-width" type="text" name="volunteer[0].position" value="" placeholder="Volunteer"></div>
+                <input class="u-full-width" type="text" name="volunteer.position" v-model="volunteerItem.position" placeholder="Volunteer"></div>
             <div>
                 <label>Start Date</label>
-                <input class="u-full-width" type="text" name="volunteer[0].startDate" value="" placeholder="October 2019">
+                <input class="u-full-width" type="text" name="volunteer.startDate" v-model="volunteerItem.startDate" placeholder="October 2019">
             </div>
             <div>
                 <label>EndDate</label>
-                <input class="u-full-width" type="text" name="volunteer[0].endDate" value="" placeholder="October 2019"></div>
+                <input class="u-full-width" type="text" name="volunteer.endDate" v-model="volunteerItem.endDate" placeholder="October 2019"></div>
             <div>
                 <label>Summary</label>
-                <textarea class="u-full-width" name="volunteer[0].summary" value="" placeholder="Volunteered for an awesome event at GDG Fest."> </textarea>
+                <textarea class="u-full-width" name="volunteer.summary" v-model="volunteerItem.summary" placeholder="Volunteered for an awesome event at GDG Fest."> </textarea>
             </div>
-            <div class="section-buttons">
-                <button type="button">Add Volunteer Work</button>
-                <button disabled="" type="button">Remove Volunteer Work</button>
-            </div>
+            <hr>
+        </div>
+        <div class="section-buttons">
+            <button type="button" @mouseup="addVolunteer">Add Volunteer Work</button>
+            <button disabled="" type="button">Remove Volunteer Work</button>
         </div>
     </fieldset>
 </template>
@@ -36,6 +37,26 @@
 <script>
     export default {
         name: "VolunteerForm",
+        props: {
+            volunteer: { type: Array, required: true },
+        },
+        methods: {
+            addVolunteer() {
+                this.volunteer.push({
+                    organization: "",
+                    position: "",
+                    website: "",
+                    startDate: "",
+                    endDate: "",
+                    summary: "",
+                    highlights: [],
+                })
+            },
+
+            addHighlight(volunteerIndex) {
+                this.volunteer[volunteerIndex].highlights.push("")
+            }
+        },
     }
 </script>
 

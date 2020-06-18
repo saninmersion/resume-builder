@@ -7,6 +7,10 @@
                 <input class="u-full-width" type="text" name="basics.name" v-model="profile.name" placeholder="Kumar Chhetri">
             </div>
             <div>
+                <label>Designation</label>
+                <input class="u-full-width" type="text" name="basics.name" v-model="profile.label" placeholder="Programmer">
+            </div>
+            <div>
                 <label>Email</label>
                 <input class="u-full-width" type="text" name="basics.email" v-model="profile.email" placeholder="kumarchhetri@somemail.com"></div>
             <div>
